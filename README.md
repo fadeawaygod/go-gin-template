@@ -7,3 +7,6 @@ Setup:
 Go mod
 1. go env -w GO111MODULE=on(1.12 or earlier)
 2. go mod init go-iris-template(if not exist)
+
+test
+prerequisite
