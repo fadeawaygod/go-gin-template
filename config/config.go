@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -19,5 +20,8 @@ func GetEnv(key string) string {
 
 func loadEnvFile() error {
 	err := godotenv.Load(".env")
+	if err != nil {
+		log.Print("load .env file failed.")
+	}
 	return err
 }

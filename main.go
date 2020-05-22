@@ -16,5 +16,5 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	r := setupRouter()
-	r.Run(config.GetEnv("GIN_HOST")) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(config.GetEnv("HTTP_PORT"))
 }
