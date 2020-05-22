@@ -12,7 +12,7 @@ type Error struct {
 }
 
 var (
-	MissongRequiredParameterError = Error{http.StatusBadRequest, 10000, "Missong required parameter: %s"}
+	MissongRequiredParameterError = Error{http.StatusBadRequest, 10000, "Missong required parameter: %v"}
 )
 
 func FormatError(err *Error, parameters ...interface{}) Error {
