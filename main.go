@@ -8,13 +8,14 @@ import (
 )
 
 func setupRouter() *gin.Engine {
-	r := gin.Default()
-	r.GET("/ping", handler.GetPing)
+	router := gin.Default()
+	router.GET("/ping", handler.GetPing)
 
-	return r
+	return router
 }
 
 func main() {
+	gin.SetMode(config.GetEnv("RUN_MODE"))
 	r := setupRouter()
 	r.Run(config.GetEnv("HTTP_PORT"))
 }
