@@ -9,7 +9,14 @@ import (
 
 func setupRouter() *gin.Engine {
 	router := gin.Default()
-	router.GET("/ping", handler.GetPing)
+	apiv1 := router.Group("/api/v1")
+	{
+		apiv1.GET("/ping", handler.GetPing)
+		apiv1.GET("/tags", handler.GetTags)
+		apiv1.POST("/tags", handler.AddTag)
+		apiv1.PUT("/tags/:id", handler.EditTag)
+		apiv1.DELETE("/tags/:id", handler.DeleteTag)
+	}
 
 	return router
 }

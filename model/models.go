@@ -1,11 +1,10 @@
-package db
+package model
 
 import (
 	"fmt"
 	"log"
 
 	"github.com/jinzhu/gorm"
-	// formysql
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
 	"go-gin-template/config"
@@ -45,7 +44,6 @@ func init() {
 	db.DB().SetMaxOpenConns(100)
 }
 
-// CloseDB close db connection
 func CloseDB() {
 	defer db.Close()
 }
