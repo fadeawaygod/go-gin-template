@@ -15,7 +15,7 @@ func GetTags(c *gin.Context) {
 	limitRaw := c.Query("limit")
 	skip, err := strconv.Atoi(skipRaw)
 	if err != nil {
-		err := error.FormatError(&(error.MissongRequiredParameterError), "skip")
+		err := error.FormatError(error.MissongRequiredParameterError, "skip")
 		util.WriteError(c, &err)
 		return
 	}

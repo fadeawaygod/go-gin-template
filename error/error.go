@@ -15,8 +15,8 @@ var (
 	MissongRequiredParameterError = Error{http.StatusBadRequest, 10000, "Missong required parameter: %v"}
 )
 
-func FormatError(err *Error, parameters ...interface{}) Error {
+func FormatError(err Error, parameters ...interface{}) Error {
 	tmpErr := err
-	tmpErr.Message = fmt.Sprintf(err.Message, parameters...)
-	return *tmpErr
+	tmpErr.Message = fmt.Sprintf(tmpErr.Message, parameters...)
+	return tmpErr
 }
