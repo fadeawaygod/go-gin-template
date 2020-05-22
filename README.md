@@ -2,8 +2,10 @@
 
 Setup:
 1. install go 1.14 or later
-2. copy .env.template to .env and configurate
-3. go build
+2. setup DB
+   1. install mySQL 8
+3. copy .env.template to .env and configurate
+4. go build
 
 Go mod
 1. go env -w GO111MODULE=on(1.12 or earlier)
