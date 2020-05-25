@@ -21,6 +21,9 @@ func GetTags(c *gin.Context) {
 	}
 	limit, err := strconv.Atoi(limitRaw)
 	if err != nil {
+		err := error.FormatError(error.MissongRequiredParameterError, "limit")
+		util.WriteError(c, &err)
+		return
 	}
 
 	maps := make(map[string]interface{})

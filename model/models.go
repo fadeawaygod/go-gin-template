@@ -24,8 +24,8 @@ func init() {
 	user := config.GetEnv("DB_USER")
 	password := config.GetEnv("DB_PASSWORD")
 	host := config.GetEnv("DB_HOST")
-
-	db, err := gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	var err error
+	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
 		host,
