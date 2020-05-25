@@ -9,7 +9,11 @@ type Tag struct {
 }
 
 func GetTags(skip int, limit int, maps interface{}) (tags []Tag) {
-	db.Where(maps).Offset(skip).Limit(limit).Find(&tags)
+	query := db.Where(maps).Offset(skip)
+	if limit > 0 {
+		query = query.Limit(limit)
+	}
+	query = query.Find(&tags)
 	return
 }
 

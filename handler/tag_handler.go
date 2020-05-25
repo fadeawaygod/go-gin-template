@@ -1,40 +1,27 @@
 package handler
 
 import (
-	"go-gin-template/error"
 	"go-gin-template/model"
 	"go-gin-template/util"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetTags(c *gin.Context) {
-	name := c.Query("name")
-	skipRaw := c.Query("skip")
-	limitRaw := c.Query("limit")
-	skip, err := strconv.Atoi(skipRaw)
-	if err != nil {
-		err := error.FormatError(error.MissongRequiredParameterError, "skip")
-		util.WriteError(c, &err)
-		return
-	}
-	limit, err := strconv.Atoi(limitRaw)
-	if err != nil {
-		err := error.FormatError(error.MissongRequiredParameterError, "limit")
-		util.WriteError(c, &err)
-		return
-	}
 
-	maps := make(map[string]interface{})
+	skip, err := util.ReadIntParameter(c, "skip", false, 0)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	limit, err := util.ReadIntParameter(c, "limit", false, 0)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	optioanlParameters := []string{"name", "state"}
+	maps := util.ParameterToMap(c, optioanlParameters)
 	data := make(map[string]interface{})
-
-	if name != "" {
-		maps["name"] = name
-	}
-	if arg := c.Query("state"); arg != "" {
-		maps["state"] = -1
-	}
 
 	data["lists"] = model.GetTags(skip, limit, maps)
 	data["total"] = model.GetTagTotal(maps)
