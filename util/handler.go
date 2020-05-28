@@ -9,10 +9,13 @@ import (
 )
 
 func WriteSuccess(c *gin.Context, data interface{}) {
-	c.JSON(http.StatusOK, gin.H{
-		"status": "ok",
-		"data":   data,
-	})
+	var body = make(gin.H)
+	body["status"] = "ok"
+	if data != nil {
+		body["data"] = data
+	}
+
+	c.JSON(http.StatusOK, body)
 }
 func WriteError(c *gin.Context, err *(exception.Exception)) {
 	c.JSON(err.HttpStatusCode, gin.H{

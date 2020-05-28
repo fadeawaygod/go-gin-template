@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"go-gin-template/exception"
 	"go-gin-template/model"
 	"go-gin-template/util"
 
@@ -23,12 +24,32 @@ func GetTags(c *gin.Context) {
 	maps := util.ParameterToMap(c, optioanlParameters)
 	data := make(map[string]interface{})
 
-	data["lists"] = model.GetTags(skip, limit, maps)
-	data["total"] = model.GetTagTotal(maps)
+	data["lists"], err = model.GetTags(skip, limit, maps)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	data["total"], err = model.GetTagTotal(maps)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
 	util.WriteSuccess(c, data)
 }
 
 func AddTag(c *gin.Context) {
+	var body model.RawTag
+	ginErr := c.BindJSON(&body)
+	if ginErr != nil {
+		util.WriteError(c, &exception.ParseJsonBodyError)
+		return
+	}
+	err := model.AddTag(body)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	util.WriteSuccess(c, nil)
 }
 
 func EditTag(c *gin.Context) {
