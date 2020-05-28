@@ -53,3 +53,14 @@ func AddTag(requestTag RawTag) (err *exception.Exception) {
 	}
 	return err
 }
+func EditTag(id int, requestTag RawTag) (err *exception.Exception) {
+	// Update with struct only works with none zero values, or use map[string]interface{}
+	dbState := db.Model(&Tag{}).Where("id = ?", id).Update(&Tag{
+		Name: requestTag.Name,
+	})
+	if dbState.Error != nil {
+		err = &exception.QueryDatabaseError
+		log.Println(dbState.Error)
+	}
+	return err
+}

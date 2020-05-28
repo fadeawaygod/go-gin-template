@@ -15,6 +15,7 @@ var (
 	MissongRequiredParameterError = Exception{http.StatusBadRequest, 10000, "Missong required parameter: %v"}
 	ParseJsonBodyError            = Exception{http.StatusBadRequest, 10001, "Parse Json body failed."}
 	QueryDatabaseError            = Exception{http.StatusBadRequest, 10002, "Query Database Failed"}
+	MissongURLParameterError      = Exception{http.StatusBadRequest, 10003, "Missong URL parameter: %v"}
 )
 
 func FormatException(err Exception, parameters ...interface{}) Exception {

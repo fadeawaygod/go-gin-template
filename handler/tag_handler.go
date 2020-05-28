@@ -53,6 +53,25 @@ func AddTag(c *gin.Context) {
 }
 
 func EditTag(c *gin.Context) {
+	var body model.RawTag
+	tagId, err := util.ReadIntURLParameter(c, "id")
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+
+	ginErr := c.BindJSON(&body)
+	if ginErr != nil {
+		util.WriteError(c, &exception.ParseJsonBodyError)
+		return
+	}
+
+	err = model.EditTag(tagId, body)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	util.WriteSuccess(c, nil)
 }
 
 func DeleteTag(c *gin.Context) {

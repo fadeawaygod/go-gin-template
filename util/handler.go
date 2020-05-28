@@ -34,8 +34,18 @@ func ReadIntParameter(c *gin.Context, name string, isRequired bool, defaultValue
 			formatedException := exception.FormatException(exception.MissongRequiredParameterError, name)
 			return 0, &formatedException
 		}
-
 		return defaultValue, nil
+	}
+	return value, nil
+}
+
+// ReadIntParameter read an url parameter and cast into integer
+func ReadIntURLParameter(c *gin.Context, name string) (int, *exception.Exception) {
+	rawString := c.Param(name)
+	value, err := strconv.Atoi(rawString)
+	if err != nil {
+		formatedException := exception.FormatException(exception.MissongURLParameterError, name)
+		return 0, &formatedException
 	}
 	return value, nil
 }
