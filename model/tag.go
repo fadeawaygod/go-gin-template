@@ -62,6 +62,9 @@ func EditTag(id int, requestTag RawTag) (err *exception.Exception) {
 		err = &exception.QueryDatabaseError
 		log.Println(dbState.Error)
 	}
+	if dbState.RowsAffected == 0 {
+		err = &exception.IdInvalidError
+	}
 	return err
 }
 
@@ -72,5 +75,9 @@ func DeleteTag(id int) (err *exception.Exception) {
 		err = &exception.QueryDatabaseError
 		log.Println(dbState.Error)
 	}
+	if dbState.RowsAffected == 0 {
+		err = &exception.IdInvalidError
+	}
+
 	return err
 }
