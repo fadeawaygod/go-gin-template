@@ -75,4 +75,17 @@ func EditTag(c *gin.Context) {
 }
 
 func DeleteTag(c *gin.Context) {
+	tagId, err := util.ReadIntURLParameter(c, "id")
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+
+	err = model.DeleteTag(tagId)
+	if err != nil {
+		util.WriteError(c, err)
+		return
+	}
+	util.WriteSuccess(c, nil)
+
 }

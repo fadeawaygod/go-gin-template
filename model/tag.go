@@ -64,3 +64,13 @@ func EditTag(id int, requestTag RawTag) (err *exception.Exception) {
 	}
 	return err
 }
+
+func DeleteTag(id int) (err *exception.Exception) {
+	dbState := db.Where("id = ?", id).Delete(&Tag{})
+
+	if dbState.Error != nil {
+		err = &exception.QueryDatabaseError
+		log.Println(dbState.Error)
+	}
+	return err
+}
